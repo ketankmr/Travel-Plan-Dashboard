@@ -10,11 +10,24 @@
     <!-- Header Section -->
     <header class="dashboard-header">
         <div class="container">
-            <h1>DIY Helsinki-Lapland-Stockholm Trip Dashboard</h1>
+            <div class="header-top">
+                <h1>DIY Helsinki-Lapland-Stockholm Trip Dashboard</h1>
+                <!-- Save Status Indicator -->
+                <div class="save-status" id="save-status">
+                    <div class="save-indicator" id="save-indicator">
+                        <span class="save-icon">💾</span>
+                        <span class="save-text" id="save-text">All changes saved</span>
+                    </div>
+                    <div class="last-saved" id="last-saved">
+                        Last saved: <span id="last-saved-time">Never</span>
+                    </div>
+                </div>
+            </div>
+            
             <div class="trip-overview">
                 <span class="trip-duration">10 days international trip</span>
                 <span class="trip-route">Bangalore → Helsinki → Porvoo → Lapland → Stockholm → Bangalore</span>
-                <span class="trip-update">💱 Single Currency Display</span>
+                <span class="trip-update">💾 Auto-Save Enabled</span>
             </div>
             
             <!-- Currency and Exchange Rate Controls -->
@@ -37,7 +50,10 @@
                     </div>
                     <div class="exchange-rate-meta">
                         <small>Last updated: <span id="rate-timestamp">Now</span></small>
-                        <button class="btn btn--sm btn--outline" id="reset-rate-btn">Reset to ₹90</button>
+                        <div class="control-buttons">
+                            <button class="btn btn--sm btn--outline" id="reset-rate-btn">Reset Rate</button>
+                            <button class="btn btn--sm btn--secondary" id="reset-all-btn">Reset All Data</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -60,6 +76,11 @@
                             <option value="5">5 people</option>
                             <option value="6">6 people</option>
                         </select>
+                    </div>
+                    <div class="control-item">
+                        <button class="btn btn--outline btn--sm" id="export-settings-btn">Export Settings</button>
+                        <button class="btn btn--outline btn--sm" id="import-settings-btn">Import Settings</button>
+                        <input type="file" id="import-file" accept=".json" style="display: none;">
                     </div>
                 </div>
             </div>
@@ -136,6 +157,27 @@
                     </div>
                 </div>
 
+                <!-- Persistence Status Card -->
+                <div class="card persistence-status">
+                    <div class="card__body">
+                        <h3>💾 Data Persistence Status</h3>
+                        <div class="persistence-info">
+                            <div class="persistence-item">
+                                <strong>Auto-Save:</strong> <span class="status--success" id="autosave-status">Enabled</span>
+                            </div>
+                            <div class="persistence-item">
+                                <strong>Storage:</strong> <span id="storage-status">Browser Local Storage</span>
+                            </div>
+                            <div class="persistence-item">
+                                <strong>Data Size:</strong> <span id="data-size">Calculating...</span>
+                            </div>
+                            <div class="persistence-item">
+                                <strong>Last Backup:</strong> <span id="last-backup">Never</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Trip Highlights -->
                 <div class="trip-highlights">
                     <h2>Complete International Trip</h2>
@@ -170,8 +212,8 @@
                         </div>
                         <div class="card highlight-card transport-update">
                             <div class="card__body">
-                                <h3>💱 Single Currency</h3>
-                                <p>Clean interface with dropdown currency selection</p>
+                                <h3>💾 Auto-Save</h3>
+                                <p>All changes saved automatically to prevent data loss</p>
                                 <span class="highlight-duration">Real-time</span>
                             </div>
                         </div>
@@ -195,7 +237,7 @@
                 <div class="card cost-table-container">
                     <div class="card__body">
                         <div class="table-header">
-                            <h2>💱 Cost Calculator - <span id="table-currency">EUR</span></h2>
+                            <h2>💾 Cost Calculator - <span id="table-currency">EUR</span></h2>
                             <div class="table-actions">
                                 <button class="btn btn--secondary" id="add-item-btn">+ Add Item</button>
                                 <button class="btn btn--outline" id="export-csv-btn">Export CSV</button>
@@ -203,7 +245,7 @@
                         </div>
                         
                         <div class="currency-instructions">
-                            <p><strong>💡 Instructions:</strong> Click any price field to edit. All prices are shown in <span id="instructions-currency">EUR</span>. Change currency from the dropdown above to view/edit in different currency.</p>
+                            <p><strong>💡 Auto-Save Enabled:</strong> All changes are automatically saved. Click any price field to edit. Prices shown in <span id="instructions-currency">EUR</span>. Your customizations will be remembered between sessions.</p>
                         </div>
                         
                         <div class="table-responsive">
@@ -294,10 +336,19 @@
                 <!-- Enhanced Tips Section -->
                 <div class="card tips-section">
                     <div class="card__body">
-                        <h2>💡 International Travel & Currency Tips</h2>
+                        <h2>💡 International Travel & Data Management Tips</h2>
                         <div class="tips-grid">
                             <div class="tip-item">
-                                <strong>💱 Exchange Rate Strategy:</strong> Monitor EUR-INR rates 2-3 months before travel. Current rate around ₹90/€ is reasonable for planning.
+                                <strong>💾 Auto-Save Feature:</strong> All your customizations are automatically saved to your browser. No need to worry about losing changes when refreshing or closing the page.
+                            </div>
+                            <div class="tip-item">
+                                <strong>💱 Exchange Rate Strategy:</strong> Monitor EUR-INR rates 2-3 months before travel. Your custom exchange rate is saved and remembered between sessions.
+                            </div>
+                            <div class="tip-item">
+                                <strong>📱 Data Backup:</strong> Use the Export Settings button to backup your customized prices and preferences to a file for sharing or safekeeping.
+                            </div>
+                            <div class="tip-item">
+                                <strong>🔄 Reset Options:</strong> Use "Reset Rate" to restore default exchange rate or "Reset All Data" to clear all customizations and start fresh.
                             </div>
                             <div class="tip-item">
                                 <strong>✈️ International Flight Booking:</strong> Book Bangalore-Helsinki and Stockholm-Bangalore 3-4 months in advance for best rates.
@@ -309,16 +360,7 @@
                                 <strong>🚂 VR Night Train:</strong> Book Helsinki-Rovaniemi sleeper 3-6 months in advance. Choose 3-berth with shower for comfort.
                             </div>
                             <div class="tip-item">
-                                <strong>💳 Payment in Europe:</strong> Cards widely accepted in Finland & Sweden. Keep some EUR cash for small vendors and tips.
-                            </div>
-                            <div class="tip-item">
                                 <strong>🌌 Northern Lights:</strong> Book 2 tours for better chances. Nov-Mar is best season with clear, cold nights.
-                            </div>
-                            <div class="tip-item">
-                                <strong>🏛️ Porvoo Day Trip:</strong> Historic town 50km from Helsinki. Book bus tour or take local bus for budget option.
-                            </div>
-                            <div class="tip-item">
-                                <strong>✈️ Rovaniemi-Stockholm:</strong> Direct flight saves time vs returning to Helsinki. Book Finnair for best connections.
                             </div>
                         </div>
                     </div>
@@ -367,6 +409,33 @@
             <div class="modal-footer">
                 <button class="btn btn--outline" id="modal-cancel">Cancel</button>
                 <button class="btn btn--primary" id="modal-save">Add Item</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Confirmation Modal -->
+    <div class="modal hidden" id="reset-modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Reset All Data</h3>
+                <button class="modal-close" id="reset-modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>⚠️ Warning:</strong> This will permanently delete all your customized data including:</p>
+                <ul>
+                    <li>All price modifications</li>
+                    <li>Custom exchange rates</li>
+                    <li>Group size preferences</li>
+                    <li>Booking status</li>
+                    <li>Added custom items</li>
+                </ul>
+                <p>This action cannot be undone. Consider exporting your settings first as a backup.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--outline" id="reset-cancel">Cancel</button>
+                <button class="btn btn--primary" id="export-before-reset">Export First</button>
+                <button class="btn" style="background: var(--color-error); color: var(--color-white);" id="confirm-reset">Reset All Data</button>
             </div>
         </div>
     </div>

@@ -1,3 +1,10 @@
+// Persistent Data Storage Configuration
+const STORAGE_CONFIG = {
+    key: 'diy_travel_dashboard',
+    autoSaveDelay: 500, // milliseconds
+    version: '1.0'
+};
+
 // Trip data and configuration
 let EXCHANGE_RATE = 90; // EUR to INR - editable
 let CURRENT_CURRENCY = 'EUR'; // Default currency
@@ -213,8 +220,8 @@ const dailyItinerary = [
     }
 ];
 
-// Initialize updated trip items with international flights and new routing
-let tripItems = [
+// Default trip items data
+const DEFAULT_TRIP_ITEMS = [
     {
         id: 1,
         category: "International Flights",
@@ -226,7 +233,8 @@ let tripItems = [
         shared: false,
         bookingUrl: "https://www.skyscanner.co.in/routes/blr/hel/bengaluru-to-helsinki-vantaa.html",
         notes: "International arrival flight",
-        booked: false
+        booked: false,
+        isDefault: true
     },
     {
         id: 2,
@@ -239,7 +247,8 @@ let tripItems = [
         shared: false,
         bookingUrl: "https://www.skyscanner.co.in/routes/stoc/blr/stockholm-to-bengaluru.html",
         notes: "International return flight",
-        booked: false
+        booked: false,
+        isDefault: true
     },
     {
         id: 3,
@@ -252,7 +261,8 @@ let tripItems = [
         shared: true,
         bookingUrl: "https://www.booking.com/city/fi/helsinki.html",
         notes: "Central location, breakfast included",
-        booked: false
+        booked: false,
+        isDefault: true
     },
     {
         id: 4,
@@ -265,7 +275,8 @@ let tripItems = [
         shared: false,
         bookingUrl: "https://www.klook.com/en-IN/activity/3428-hop-on-hop-off-bus-helsinki/",
         notes: "Covers main attractions",
-        booked: false
+        booked: false,
+        isDefault: true
     },
     {
         id: 5,
@@ -278,7 +289,8 @@ let tripItems = [
         shared: false,
         bookingUrl: "https://www.temppeliaukionkirkko.fi/",
         notes: "Famous underground church",
-        booked: false
+        booked: false,
+        isDefault: true
     },
     {
         id: 6,
@@ -291,7 +303,8 @@ let tripItems = [
         shared: false,
         bookingUrl: "https://www.viator.com/en-IN/tours/Helsinki/Porvoo-Half-Day-Sightseeing/d803-46188P38",
         notes: "Historic town visit by bus",
-        booked: false
+        booked: false,
+        isDefault: true
     },
     {
         id: 7,
@@ -304,7 +317,8 @@ let tripItems = [
         shared: false,
         bookingUrl: "https://www.hsl.fi/en/tickets-and-fares",
         notes: "Metro, tram, bus access",
-        booked: false
+        booked: false,
+        isDefault: true
     },
     {
         id: 8,
@@ -317,7 +331,8 @@ let tripItems = [
         shared: true,
         bookingUrl: "https://www.vr.fi/en",
         notes: "3-berth sleeper cabin with shower",
-        booked: false
+        booked: false,
+        isDefault: true
     },
     {
         id: 9,
@@ -330,7 +345,8 @@ let tripItems = [
         shared: true,
         bookingUrl: "https://www.booking.com/city/fi/rovaniemi.html",
         notes: "Central Rovaniemi location",
-        booked: false
+        booked: false,
+        isDefault: true
     },
     {
         id: 10,
@@ -343,7 +359,8 @@ let tripItems = [
         shared: false,
         bookingUrl: "https://www.arcticlifestyle.fi/",
         notes: "Small group, photos included",
-        booked: false
+        booked: false,
+        isDefault: true
     },
     {
         id: 11,
@@ -356,7 +373,8 @@ let tripItems = [
         shared: false,
         bookingUrl: "https://santaclausvillage.info/",
         notes: "Reindeer + husky combo",
-        booked: false
+        booked: false,
+        isDefault: true
     },
     {
         id: 12,
@@ -369,7 +387,8 @@ let tripItems = [
         shared: false,
         bookingUrl: "https://www.skyscanner.co.in/routes/rvn/stoc/rovaniemi-to-stockholm.html",
         notes: "Finnair connection via Helsinki",
-        booked: false
+        booked: false,
+        isDefault: true
     },
     {
         id: 13,
@@ -382,7 +401,8 @@ let tripItems = [
         shared: true,
         bookingUrl: "https://www.booking.com/city/se/stockholm.html",
         notes: "Central Stockholm location",
-        booked: false
+        booked: false,
+        isDefault: true
     },
     {
         id: 14,
@@ -395,7 +415,8 @@ let tripItems = [
         shared: false,
         bookingUrl: "https://www.getyourguide.com/stockholm-l50/",
         notes: "Includes Vasa Museum",
-        booked: false
+        booked: false,
+        isDefault: true
     },
     {
         id: 15,
@@ -408,7 +429,8 @@ let tripItems = [
         shared: false,
         bookingUrl: "https://sl.se/en/",
         notes: "Metro, bus, tram access",
-        booked: false
+        booked: false,
+        isDefault: true
     },
     {
         id: 16,
@@ -421,14 +443,370 @@ let tripItems = [
         shared: false,
         bookingUrl: "https://www.viator.com/Stockholm-tours/Bar-Club-and-Pub-Tours/d907-g6-c18",
         notes: "Social evening activity",
-        booked: false
+        booked: false,
+        isDefault: true
     }
 ];
+
+// Initialize trip items from defaults
+let tripItems = [...DEFAULT_TRIP_ITEMS];
 
 // State management
 let currentGroupSize = 3;
 let nextItemId = 17;
 let currentTab = 'overview';
+let saveTimeout = null;
+let isStorageAvailable = true;
+
+// Persistent Data Management
+class PersistentDataManager {
+    constructor() {
+        this.storageKey = STORAGE_CONFIG.key;
+        this.checkStorageAvailability();
+    }
+
+    checkStorageAvailability() {
+        try {
+            const test = 'storage_test';
+            localStorage.setItem(test, test);
+            localStorage.removeItem(test);
+            this.isAvailable = true;
+            console.log('✅ Local storage available');
+        } catch (error) {
+            this.isAvailable = false;
+            isStorageAvailable = false;
+            console.warn('⚠️ Local storage not available:', error);
+            this.showStorageError();
+        }
+    }
+
+    showStorageError() {
+        const statusEl = document.getElementById('storage-status');
+        if (statusEl) {
+            statusEl.textContent = 'Storage unavailable';
+            statusEl.style.color = 'var(--color-error)';
+        }
+    }
+
+    save(data) {
+        if (!this.isAvailable) return false;
+
+        try {
+            const saveData = {
+                version: STORAGE_CONFIG.version,
+                timestamp: Date.now(),
+                data: data
+            };
+            
+            localStorage.setItem(this.storageKey, JSON.stringify(saveData));
+            this.updateSaveStatus('saved');
+            this.updateDataSize();
+            console.log('💾 Data saved to localStorage');
+            return true;
+        } catch (error) {
+            console.error('Save failed:', error);
+            this.updateSaveStatus('error');
+            return false;
+        }
+    }
+
+    load() {
+        if (!this.isAvailable) return null;
+
+        try {
+            const stored = localStorage.getItem(this.storageKey);
+            if (!stored) return null;
+
+            const saveData = JSON.parse(stored);
+            console.log('📖 Loaded data from storage:', saveData.timestamp);
+            return saveData.data;
+        } catch (error) {
+            console.error('Load failed:', error);
+            return null;
+        }
+    }
+
+    clear() {
+        if (!this.isAvailable) return false;
+
+        try {
+            localStorage.removeItem(this.storageKey);
+            console.log('🗑️ Storage cleared');
+            return true;
+        } catch (error) {
+            console.error('Clear failed:', error);
+            return false;
+        }
+    }
+
+    getDataSize() {
+        if (!this.isAvailable) return '0 KB';
+
+        try {
+            const data = localStorage.getItem(this.storageKey);
+            if (!data) return '0 KB';
+            
+            const sizeInBytes = new Blob([data]).size;
+            if (sizeInBytes < 1024) return `${sizeInBytes} B`;
+            return `${(sizeInBytes / 1024).toFixed(1)} KB`;
+        } catch (error) {
+            return 'Unknown';
+        }
+    }
+
+    updateDataSize() {
+        const sizeEl = document.getElementById('data-size');
+        if (sizeEl) {
+            sizeEl.textContent = this.getDataSize();
+        }
+    }
+
+    updateSaveStatus(status) {
+        const indicator = document.getElementById('save-indicator');
+        const saveText = document.getElementById('save-text');
+        const lastSavedTime = document.getElementById('last-saved-time');
+        
+        if (!indicator || !saveText) return;
+
+        // Remove existing status classes
+        indicator.classList.remove('saving', 'error');
+        
+        switch (status) {
+            case 'saving':
+                indicator.classList.add('saving');
+                saveText.textContent = 'Saving...';
+                break;
+            case 'saved':
+                saveText.textContent = 'All changes saved';
+                if (lastSavedTime) {
+                    lastSavedTime.textContent = new Date().toLocaleTimeString();
+                }
+                break;
+            case 'error':
+                indicator.classList.add('error');
+                saveText.textContent = 'Save failed';
+                break;
+        }
+    }
+
+    getLastSavedTime() {
+        if (!this.isAvailable) return null;
+
+        try {
+            const stored = localStorage.getItem(this.storageKey);
+            if (!stored) return null;
+
+            const saveData = JSON.parse(stored);
+            return new Date(saveData.timestamp);
+        } catch (error) {
+            return null;
+        }
+    }
+}
+
+// Initialize persistent data manager
+const dataManager = new PersistentDataManager();
+
+// Auto-save functionality with debouncing
+function scheduleAutoSave() {
+    if (saveTimeout) clearTimeout(saveTimeout);
+    
+    dataManager.updateSaveStatus('saving');
+    
+    saveTimeout = setTimeout(() => {
+        const success = saveData();
+        if (success) {
+            console.log('💾 Auto-save completed');
+        }
+    }, STORAGE_CONFIG.autoSaveDelay);
+}
+
+function saveData() {
+    const dataToSave = {
+        tripItems: tripItems,
+        userPreferences: {
+            currency: CURRENT_CURRENCY,
+            exchangeRate: EXCHANGE_RATE,
+            groupSize: currentGroupSize
+        },
+        customItems: tripItems.filter(item => !item.isDefault),
+        lastSaved: Date.now()
+    };
+
+    return dataManager.save(dataToSave);
+}
+
+function loadData() {
+    const savedData = dataManager.load();
+    if (!savedData) {
+        console.log('📝 No saved data found, using defaults');
+        updatePersistenceStatus();
+        return false;
+    }
+
+    try {
+        // Load user preferences
+        if (savedData.userPreferences) {
+            CURRENT_CURRENCY = savedData.userPreferences.currency || 'EUR';
+            EXCHANGE_RATE = savedData.userPreferences.exchangeRate || 90;
+            currentGroupSize = savedData.userPreferences.groupSize || 3;
+        }
+
+        // Load trip items
+        if (savedData.tripItems && Array.isArray(savedData.tripItems)) {
+            tripItems = savedData.tripItems;
+            
+            // Ensure next ID is higher than any existing ID
+            const maxId = Math.max(...tripItems.map(item => item.id || 0));
+            nextItemId = maxId + 1;
+        }
+
+        console.log('✅ Data loaded successfully');
+        updatePersistenceStatus();
+        return true;
+    } catch (error) {
+        console.error('Error loading data:', error);
+        return false;
+    }
+}
+
+function updatePersistenceStatus() {
+    const lastSaved = dataManager.getLastSavedTime();
+    const lastSavedEl = document.getElementById('last-saved-time');
+    const lastBackupEl = document.getElementById('last-backup');
+    
+    if (lastSavedEl) {
+        if (lastSaved) {
+            lastSavedEl.textContent = lastSaved.toLocaleString();
+        } else {
+            lastSavedEl.textContent = 'Never';
+        }
+    }
+    
+    if (lastBackupEl) {
+        const backupTime = localStorage.getItem('last_backup_time');
+        if (backupTime) {
+            lastBackupEl.textContent = new Date(parseInt(backupTime)).toLocaleString();
+        } else {
+            lastBackupEl.textContent = 'Never';
+        }
+    }
+
+    dataManager.updateDataSize();
+}
+
+// Export/Import functionality
+function exportSettings() {
+    const exportData = {
+        version: STORAGE_CONFIG.version,
+        exportDate: new Date().toISOString(),
+        tripItems: tripItems,
+        userPreferences: {
+            currency: CURRENT_CURRENCY,
+            exchangeRate: EXCHANGE_RATE,
+            groupSize: currentGroupSize
+        }
+    };
+
+    const dataStr = JSON.stringify(exportData, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `diy-travel-settings-${new Date().toISOString().split('T')[0]}.json`;
+    link.style.display = 'none';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    URL.revokeObjectURL(url);
+    
+    // Update last backup time
+    localStorage.setItem('last_backup_time', Date.now().toString());
+    updatePersistenceStatus();
+    
+    console.log('📤 Settings exported successfully');
+    alert('Settings exported successfully! File saved to downloads.');
+}
+
+function importSettings(file) {
+    const reader = new FileReader();
+    
+    reader.onload = function(e) {
+        try {
+            const importData = JSON.parse(e.target.result);
+            
+            if (!importData.version || !importData.tripItems) {
+                throw new Error('Invalid file format');
+            }
+            
+            // Restore data
+            tripItems = importData.tripItems || DEFAULT_TRIP_ITEMS;
+            
+            if (importData.userPreferences) {
+                CURRENT_CURRENCY = importData.userPreferences.currency || 'EUR';
+                EXCHANGE_RATE = importData.userPreferences.exchangeRate || 90;
+                currentGroupSize = importData.userPreferences.groupSize || 3;
+            }
+            
+            // Update next ID
+            const maxId = Math.max(...tripItems.map(item => item.id || 0));
+            nextItemId = maxId + 1;
+            
+            // Update UI
+            updateUIFromData();
+            scheduleAutoSave();
+            
+            console.log('📥 Settings imported successfully');
+            alert('Settings imported successfully! All your data has been restored.');
+            
+        } catch (error) {
+            console.error('Import failed:', error);
+            alert('Import failed: Invalid file format or corrupted data.');
+        }
+    };
+    
+    reader.readAsText(file);
+}
+
+function updateUIFromData() {
+    // Update form controls
+    const currencySelector = document.getElementById('currency-selector');
+    const exchangeRateInput = document.getElementById('exchange-rate');
+    const groupSizeSelect = document.getElementById('group-size');
+    
+    if (currencySelector) currencySelector.value = CURRENT_CURRENCY;
+    if (exchangeRateInput) exchangeRateInput.value = EXCHANGE_RATE;
+    if (groupSizeSelect) groupSizeSelect.value = currentGroupSize;
+    
+    // Update displays
+    updateCurrencyLabels();
+    updateSummary();
+    renderTable();
+    renderItinerary();
+    updateTimestamp();
+}
+
+function resetAllData() {
+    // Reset to defaults
+    tripItems = [...DEFAULT_TRIP_ITEMS];
+    CURRENT_CURRENCY = 'EUR';
+    EXCHANGE_RATE = 90;
+    currentGroupSize = 3;
+    nextItemId = 17;
+    
+    // Clear storage
+    dataManager.clear();
+    localStorage.removeItem('last_backup_time');
+    
+    // Update UI
+    updateUIFromData();
+    updatePersistenceStatus();
+    
+    console.log('🔄 All data reset to defaults');
+}
 
 // Global functions for onclick handlers
 window.toggleBookingStatus = function(itemId) {
@@ -436,6 +814,7 @@ window.toggleBookingStatus = function(itemId) {
     if (item) {
         item.booked = !item.booked;
         updateSummary();
+        scheduleAutoSave();
         
         // Add visual feedback
         const row = document.querySelector(`tr[data-item-id="${itemId}"]`);
@@ -451,6 +830,7 @@ window.deleteItem = function(itemId) {
         tripItems = tripItems.filter(item => item.id !== itemId);
         renderTable();
         updateSummary();
+        scheduleAutoSave();
     }
 };
 
@@ -513,23 +893,31 @@ function updateCurrencyLabels() {
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, initializing...');
+    console.log('🚀 Initializing DIY Travel Dashboard with persistent storage...');
     
-    // Initialize immediately without delay
-    setupEventListeners();
-    renderTable();
-    renderItinerary();
-    updateSummary();
-    switchTab('overview');
-    updateTimestamp();
-    updateCurrencyLabels();
-    console.log('Application initialized successfully');
+    // Small delay to ensure DOM is fully ready
+    setTimeout(() => {
+        // Load saved data first  
+        const dataLoaded = loadData();
+        
+        // Initialize UI
+        setupEventListeners();
+        updateUIFromData();
+        switchTab('overview');
+        updatePersistenceStatus();
+        
+        if (dataLoaded) {
+            console.log('✅ Application initialized with saved data');
+        } else {
+            console.log('✅ Application initialized with default data');
+        }
+    }, 100);
 });
 
 function setupEventListeners() {
     console.log('Setting up event listeners...');
     
-    // Tab navigation
+    // Tab navigation - FIXED
     const navTabs = document.querySelectorAll('.nav-tab');
     navTabs.forEach(tab => {
         tab.addEventListener('click', function(e) {
@@ -540,18 +928,19 @@ function setupEventListeners() {
         });
     });
 
-    // Currency selector
+    // Currency selector - FIXED
     const currencySelector = document.getElementById('currency-selector');
     if (currencySelector) {
-        console.log('Currency selector found, setting up listeners');
+        console.log('Setting up currency selector');
         currencySelector.addEventListener('change', function() {
             const newCurrency = this.value;
-            console.log('Currency changed to:', newCurrency);
+            console.log('Currency changed from', CURRENT_CURRENCY, 'to', newCurrency);
             CURRENT_CURRENCY = newCurrency;
             updateCurrencyLabels();
             updateSummary();
             renderTable();
             renderItinerary();
+            scheduleAutoSave();
             
             // Update converter if values exist
             const converterEur = document.getElementById('converter-eur');
@@ -567,21 +956,14 @@ function setupEventListeners() {
         console.error('Currency selector not found');
     }
 
-    // Exchange rate control with improved functionality
+    // Exchange rate control
     const exchangeRateInput = document.getElementById('exchange-rate');
     if (exchangeRateInput) {
-        console.log('Exchange rate input found, setting up listeners');
-        
         exchangeRateInput.addEventListener('focus', function() {
             this.select();
         });
         
-        exchangeRateInput.addEventListener('click', function() {
-            this.select();
-        });
-        
         exchangeRateInput.addEventListener('input', function() {
-            console.log('Exchange rate changed to:', this.value);
             const newRate = parseFloat(this.value);
             if (newRate > 0 && newRate !== EXCHANGE_RATE) {
                 EXCHANGE_RATE = newRate;
@@ -593,6 +975,7 @@ function setupEventListeners() {
                 renderTable();
                 renderItinerary();
                 updateTimestamp();
+                scheduleAutoSave();
                 
                 // Update converter if values exist
                 const converterEur = document.getElementById('converter-eur');
@@ -605,31 +988,12 @@ function setupEventListeners() {
                 }
             }
         });
-
-        exchangeRateInput.addEventListener('change', function() {
-            console.log('Exchange rate changed (change event):', this.value);
-            const newRate = parseFloat(this.value);
-            if (newRate > 0 && newRate !== EXCHANGE_RATE) {
-                EXCHANGE_RATE = newRate;
-                tripItems.forEach(item => {
-                    item.unitCostInr = Math.round(item.unitCostEur * EXCHANGE_RATE);
-                });
-                updateSummary();
-                renderTable();
-                renderItinerary();
-                updateTimestamp();
-            }
-        });
-    } else {
-        console.error('Exchange rate input not found');
     }
 
     // Reset exchange rate button
     const resetRateBtn = document.getElementById('reset-rate-btn');
     if (resetRateBtn) {
-        console.log('Reset rate button found');
         resetRateBtn.addEventListener('click', function() {
-            console.log('Resetting exchange rate to 90');
             EXCHANGE_RATE = 90;
             if (exchangeRateInput) {
                 exchangeRateInput.value = 90;
@@ -641,21 +1005,31 @@ function setupEventListeners() {
             renderTable();
             renderItinerary();
             updateTimestamp();
+            scheduleAutoSave();
         });
     }
 
-    // Currency converter with improved functionality
+    // Reset all data button - FIXED
+    const resetAllBtn = document.getElementById('reset-all-btn');
+    if (resetAllBtn) {
+        resetAllBtn.addEventListener('click', function() {
+            console.log('Reset all button clicked');
+            showResetModal();
+        });
+    } else {
+        console.error('Reset all button not found');
+    }
+
+    // Currency converter
     const converterEur = document.getElementById('converter-eur');
     const converterInr = document.getElementById('converter-inr');
     
     if (converterEur) {
-        console.log('Converter EUR input found');
         converterEur.addEventListener('focus', function() {
             this.select();
         });
         
         converterEur.addEventListener('input', function() {
-            console.log('Converter EUR input:', this.value);
             const eurValue = parseFloat(this.value);
             if (!isNaN(eurValue) && eurValue >= 0) {
                 converterInr.value = Math.round(convertCurrency(eurValue, 'EUR', 'INR'));
@@ -666,13 +1040,11 @@ function setupEventListeners() {
     }
     
     if (converterInr) {
-        console.log('Converter INR input found');
         converterInr.addEventListener('focus', function() {
             this.select();
         });
         
         converterInr.addEventListener('input', function() {
-            console.log('Converter INR input:', this.value);
             const inrValue = parseFloat(this.value);
             if (!isNaN(inrValue) && inrValue >= 0) {
                 converterEur.value = convertCurrency(inrValue, 'INR', 'EUR').toFixed(2);
@@ -685,16 +1057,43 @@ function setupEventListeners() {
     // Group size change
     const groupSizeSelect = document.getElementById('group-size');
     if (groupSizeSelect) {
-        console.log('Group size select found');
         groupSizeSelect.addEventListener('change', function() {
-            console.log('Group size changed to:', this.value);
             currentGroupSize = parseInt(this.value);
             updateSummary();
             renderTable();
             renderItinerary();
+            scheduleAutoSave();
+        });
+    }
+
+    // Export/Import buttons - FIXED
+    const exportBtn = document.getElementById('export-settings-btn');
+    const importBtn = document.getElementById('import-settings-btn');
+    const importFile = document.getElementById('import-file');
+
+    if (exportBtn) {
+        console.log('Setting up export button');
+        exportBtn.addEventListener('click', function() {
+            console.log('Export button clicked');
+            exportSettings();
         });
     } else {
-        console.error('Group size select not found');
+        console.error('Export button not found');
+    }
+
+    if (importBtn && importFile) {
+        importBtn.addEventListener('click', function() {
+            importFile.click();
+        });
+
+        importFile.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                importSettings(file);
+            }
+            // Reset file input
+            this.value = '';
+        });
     }
 
     // Add item button
@@ -704,12 +1103,19 @@ function setupEventListeners() {
     }
 
     // Export CSV button
-    const exportBtn = document.getElementById('export-csv-btn');
-    if (exportBtn) {
-        exportBtn.addEventListener('click', exportToCSV);
+    const exportCsvBtn = document.getElementById('export-csv-btn');
+    if (exportCsvBtn) {
+        exportCsvBtn.addEventListener('click', exportToCSV);
     }
 
-    // Modal controls
+    // Modal controls - FIXED
+    setupModalEventListeners();
+    
+    console.log('Event listeners setup complete');
+}
+
+function setupModalEventListeners() {
+    // Add Item Modal
     const modalClose = document.getElementById('modal-close');
     const modalCancel = document.getElementById('modal-cancel');
     const modalSave = document.getElementById('modal-save');
@@ -719,7 +1125,6 @@ function setupEventListeners() {
     if (modalCancel) modalCancel.addEventListener('click', hideAddItemModal);
     if (modalSave) modalSave.addEventListener('click', saveNewItem);
 
-    // Modal backdrop click
     if (addItemModal) {
         const backdrop = addItemModal.querySelector('.modal-backdrop');
         if (backdrop) {
@@ -727,7 +1132,6 @@ function setupEventListeners() {
         }
     }
 
-    // Form submission
     const addItemForm = document.getElementById('add-item-form');
     if (addItemForm) {
         addItemForm.addEventListener('submit', function(e) {
@@ -735,8 +1139,63 @@ function setupEventListeners() {
             saveNewItem();
         });
     }
+
+    // Reset Modal - FIXED
+    const resetModalClose = document.getElementById('reset-modal-close');
+    const resetCancel = document.getElementById('reset-cancel');
+    const exportBeforeReset = document.getElementById('export-before-reset');
+    const confirmReset = document.getElementById('confirm-reset');
+    const resetModal = document.getElementById('reset-modal');
+
+    if (resetModalClose) {
+        resetModalClose.addEventListener('click', hideResetModal);
+    } else {
+        console.error('Reset modal close button not found');
+    }
     
-    console.log('Event listeners setup complete');
+    if (resetCancel) {
+        resetCancel.addEventListener('click', hideResetModal);
+    }
+    
+    if (exportBeforeReset) {
+        exportBeforeReset.addEventListener('click', function() {
+            exportSettings();
+            hideResetModal();
+        });
+    }
+    
+    if (confirmReset) {
+        confirmReset.addEventListener('click', function() {
+            resetAllData();
+            hideResetModal();
+            alert('All data has been reset to defaults.');
+        });
+    }
+
+    if (resetModal) {
+        const backdrop = resetModal.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.addEventListener('click', hideResetModal);
+        }
+    }
+}
+
+function showResetModal() {
+    console.log('Showing reset modal');
+    const modal = document.getElementById('reset-modal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        console.log('Reset modal shown');
+    } else {
+        console.error('Reset modal not found');
+    }
+}
+
+function hideResetModal() {
+    const modal = document.getElementById('reset-modal');
+    if (modal) {
+        modal.classList.add('hidden');
+    }
 }
 
 function updateTimestamp() {
@@ -760,7 +1219,7 @@ function switchTab(tabName) {
         }
     });
 
-    // Update tab content
+    // Update tab content - FIXED
     const tabContents = document.querySelectorAll('.tab-content');
     tabContents.forEach(content => {
         if (content.id === `${tabName}-tab`) {
@@ -780,6 +1239,8 @@ function switchTab(tabName) {
     } else if (tabName === 'costs') {
         renderTable();
     }
+    
+    console.log('Tab switched to:', tabName);
 }
 
 function calculateTotalCost(item, currency) {
@@ -846,7 +1307,6 @@ function renderItinerary() {
     const timeline = document.getElementById('itinerary-timeline');
     if (!timeline) return;
 
-    console.log('Rendering itinerary...');
     timeline.innerHTML = '';
 
     dailyItinerary.forEach(day => {
@@ -921,14 +1381,16 @@ function renderItinerary() {
 
         timeline.appendChild(dayCard);
     });
-    console.log('Itinerary rendered successfully');
 }
 
 function renderTable() {
     const tbody = document.getElementById('cost-table-body');
-    if (!tbody) return;
+    if (!tbody) {
+        console.error('Table body not found');
+        return;
+    }
     
-    console.log('Rendering table...');
+    console.log('Rendering table with', tripItems.length, 'items in currency:', CURRENT_CURRENCY);
     tbody.innerHTML = '';
 
     const categories = [...new Set(tripItems.map(item => item.category))];
@@ -949,6 +1411,7 @@ function renderTable() {
             tbody.appendChild(row);
         });
     });
+    
     console.log('Table rendered successfully');
 }
 
@@ -1060,6 +1523,7 @@ function makeEditable(cell) {
         }
         
         cell.classList.remove('editing');
+        cell.classList.add('saved');
         
         if (field === 'unitCost') {
             cell.textContent = formatCurrency(newValue, CURRENT_CURRENCY);
@@ -1070,6 +1534,10 @@ function makeEditable(cell) {
         updateSummary();
         renderTable();
         renderItinerary();
+        scheduleAutoSave();
+        
+        // Remove saved class after animation
+        setTimeout(() => cell.classList.remove('saved'), 800);
     }
 
     function cancelEdit() {
@@ -1150,12 +1618,14 @@ function saveNewItem() {
         shared: shared,
         bookingUrl: url || null,
         notes: 'Custom item',
-        booked: false
+        booked: false,
+        isDefault: false
     };
 
     tripItems.push(newItem);
     renderTable();
     updateSummary();
+    scheduleAutoSave();
     hideAddItemModal();
     
     // Switch to costs tab and scroll to the new item
@@ -1221,7 +1691,6 @@ function exportToCSV() {
         link.click();
         document.body.removeChild(link);
         
-        // Show success message
         setTimeout(() => {
             alert(`Trip CSV file downloaded successfully in ${currencyLabel}!`);
         }, 100);
@@ -1239,6 +1708,10 @@ document.addEventListener('keydown', function(e) {
             case 's':
                 e.preventDefault();
                 exportToCSV();
+                break;
+            case 'e':
+                e.preventDefault();
+                exportSettings();
                 break;
             case '1':
                 e.preventDefault();
@@ -1259,17 +1732,18 @@ document.addEventListener('keydown', function(e) {
         }
     }
     
-    const modal = document.getElementById('add-item-modal');
-    if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+    const modals = document.querySelectorAll('.modal:not(.hidden)');
+    if (e.key === 'Escape' && modals.length > 0) {
         hideAddItemModal();
+        hideResetModal();
     }
 });
 
-console.log('🌍 Helsinki-Lapland-Stockholm Travel Dashboard with Single Currency Display initialized!');
+console.log('🌍 Enhanced DIY Helsinki-Lapland-Stockholm Travel Dashboard initialized!');
+console.log('💾 Features: Auto-save, persistent storage, export/import, reset functionality');
 console.log('✈️ International flights from Bangalore');
 console.log('🗺️ 10-day routing: BLR→HEL→Porvoo→Lapland→Stockholm→BLR');
-console.log('💱 Single currency display with dropdown selector');
-console.log('📊 Real-time currency conversion with customizable exchange rates');
-console.log('🔄 Switch between EUR and INR views instantly');
-console.log('✏️ Edit prices in selected currency only');
-console.log('📱 Clean, uncluttered interface');
+console.log('💱 Single currency display with persistent exchange rates');
+console.log('📊 Real-time currency conversion with automatic saving');
+console.log('🔄 All changes saved automatically every 500ms');
+console.log('📱 Clean interface with comprehensive data management');
