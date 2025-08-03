@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY Helsinki-Lapland-Stockholm Trip Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="dashboard-header">
+        <div class="container">
+            <h1>DIY Helsinki-Lapland-Stockholm Trip Dashboard</h1>
+            <div class="trip-overview">
+                <span class="trip-duration">10 days international trip</span>
+                <span class="trip-route">Bangalore → Helsinki → Porvoo → Lapland → Stockholm → Bangalore</span>
+                <span class="trip-update">💱 Single Currency Display</span>
+            </div>
+            
+            <!-- Currency and Exchange Rate Controls -->
+            <div class="currency-controls">
+                <div class="currency-selector-card">
+                    <h3>Currency & Exchange Rate</h3>
+                    <div class="controls-row">
+                        <div class="currency-dropdown">
+                            <label for="currency-selector">Display Currency:</label>
+                            <select id="currency-selector" class="form-control">
+                                <option value="EUR">EUR (€)</option>
+                                <option value="INR">INR (₹)</option>
+                            </select>
+                        </div>
+                        <div class="exchange-rate-input">
+                            <label for="exchange-rate">€1 =</label>
+                            <input type="number" id="exchange-rate" class="form-control exchange-input" value="90" min="1" step="0.1">
+                            <span>₹</span>
+                        </div>
+                    </div>
+                    <div class="exchange-rate-meta">
+                        <small>Last updated: <span id="rate-timestamp">Now</span></small>
+                        <button class="btn btn--sm btn--outline" id="reset-rate-btn">Reset to ₹90</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="header-controls">
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Cost Per Person:</span>
+                        <span class="stat-value" id="total-per-person">€1,964</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-item">
+                        <label for="group-size">Group Size:</label>
+                        <select id="group-size" class="form-control">
+                            <option value="1">1 person</option>
+                            <option value="2">2 people</option>
+                            <option value="3" selected>3 people</option>
+                            <option value="4">4 people</option>
+                            <option value="5">5 people</option>
+                            <option value="6">6 people</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="dashboard-nav">
+        <div class="container">
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-tab="overview">Overview</button>
+                <button class="nav-tab" data-tab="itinerary">Day-by-Day Itinerary</button>
+                <button class="nav-tab" data-tab="costs">Cost Calculator</button>
+                <button class="nav-tab" data-tab="booking">Booking Links</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard -->
+    <main class="dashboard-main">
+        <div class="container">
+            
+            <!-- Overview Tab -->
+            <div class="tab-content active" id="overview-tab">
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+                    <div class="card summary-card">
+                        <div class="card__body">
+                            <h3>Total Trip Cost</h3>
+                            <div class="summary-value" id="total-cost">€5,892</div>
+                            <small>For entire group</small>
+                        </div>
+                    </div>
+                    <div class="card summary-card">
+                        <div class="card__body">
+                            <h3>Cost Per Person</h3>
+                            <div class="summary-value" id="cost-per-person">€1,964</div>
+                            <small>Based on group size</small>
+                        </div>
+                    </div>
+                    <div class="card summary-card">
+                        <div class="card__body">
+                            <h3>Items Booked</h3>
+                            <div class="summary-value">
+                                <span id="booked-count">0</span>/<span id="total-count">16</span>
+                            </div>
+                            <small>Progress tracking</small>
+                        </div>
+                    </div>
+                    <div class="card summary-card international-card">
+                        <div class="card__body">
+                            <h3>International Flights</h3>
+                            <div class="summary-value" id="international-cost">€655</div>
+                            <small>per person (major cost)</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Currency Converter Tool -->
+                <div class="card currency-converter">
+                    <div class="card__body">
+                        <h3>💱 Quick Currency Converter</h3>
+                        <div class="converter-inputs">
+                            <div class="converter-field">
+                                <label>EUR Amount:</label>
+                                <input type="number" id="converter-eur" class="form-control" placeholder="Enter EUR">
+                            </div>
+                            <div class="converter-arrow">⟷</div>
+                            <div class="converter-field">
+                                <label>INR Amount:</label>
+                                <input type="number" id="converter-inr" class="form-control" placeholder="Enter INR">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trip Highlights -->
+                <div class="trip-highlights">
+                    <h2>Complete International Trip</h2>
+                    <div class="highlights-grid">
+                        <div class="card highlight-card">
+                            <div class="card__body">
+                                <h3>🇮🇳 → 🇫🇮 International</h3>
+                                <p>Direct flights from Bangalore to Helsinki and Stockholm back to Bangalore</p>
+                                <span class="highlight-duration">Major cost</span>
+                            </div>
+                        </div>
+                        <div class="card highlight-card">
+                            <div class="card__body">
+                                <h3>🇫🇮 Helsinki + Porvoo</h3>
+                                <p>Rock Church, Sibelius Monument, Historic Porvoo day trip</p>
+                                <span class="highlight-duration">3 nights</span>
+                            </div>
+                        </div>
+                        <div class="card highlight-card">
+                            <div class="card__body">
+                                <h3>🎅 Lapland</h3>
+                                <p>Santa Claus Village, Northern Lights, Reindeer & Husky rides</p>
+                                <span class="highlight-duration">3 nights</span>
+                            </div>
+                        </div>
+                        <div class="card highlight-card">
+                            <div class="card__body">
+                                <h3>🇸🇪 Stockholm</h3>
+                                <p>Old Town, Vasa Museum, Pub crawl, direct flight from Rovaniemi</p>
+                                <span class="highlight-duration">3 nights</span>
+                            </div>
+                        </div>
+                        <div class="card highlight-card transport-update">
+                            <div class="card__body">
+                                <h3>💱 Single Currency</h3>
+                                <p>Clean interface with dropdown currency selection</p>
+                                <span class="highlight-duration">Real-time</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day-by-Day Itinerary Tab -->
+            <div class="tab-content" id="itinerary-tab">
+                <div class="itinerary-header">
+                    <h2>Complete 10-Day International Itinerary</h2>
+                    <p>From Bangalore to Helsinki, Porvoo, Lapland, Stockholm and back - with costs in <span id="itinerary-currency">EUR</span></p>
+                </div>
+                <div class="itinerary-timeline" id="itinerary-timeline">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Cost Calculator Tab -->
+            <div class="tab-content" id="costs-tab">
+                <div class="card cost-table-container">
+                    <div class="card__body">
+                        <div class="table-header">
+                            <h2>💱 Cost Calculator - <span id="table-currency">EUR</span></h2>
+                            <div class="table-actions">
+                                <button class="btn btn--secondary" id="add-item-btn">+ Add Item</button>
+                                <button class="btn btn--outline" id="export-csv-btn">Export CSV</button>
+                            </div>
+                        </div>
+                        
+                        <div class="currency-instructions">
+                            <p><strong>💡 Instructions:</strong> Click any price field to edit. All prices are shown in <span id="instructions-currency">EUR</span>. Change currency from the dropdown above to view/edit in different currency.</p>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="cost-table" id="cost-table">
+                                <thead>
+                                    <tr>
+                                        <th>Item/Activity</th>
+                                        <th>Duration/Details</th>
+                                        <th id="price-header">Price (EUR)</th>
+                                        <th>Qty</th>
+                                        <th id="total-header">Total (EUR)</th>
+                                        <th>Shared</th>
+                                        <th id="per-person-header">Per Person (EUR)</th>
+                                        <th>Booking</th>
+                                        <th>Booked</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cost-table-body">
+                                    <!-- Table rows will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Links Tab -->
+            <div class="tab-content" id="booking-tab">
+                <div class="booking-section">
+                    <h2>Complete International Trip Booking Links</h2>
+                    <div class="booking-categories">
+                        <div class="card booking-category international-flights">
+                            <div class="card__body">
+                                <h3>✈️ International Flights</h3>
+                                <div class="booking-links">
+                                    <a href="https://www.skyscanner.co.in/routes/blr/hel/bengaluru-to-helsinki-vantaa.html" target="_blank" class="btn btn--primary">Bangalore-Helsinki</a>
+                                    <a href="https://www.skyscanner.co.in/routes/stoc/blr/stockholm-to-bengaluru.html" target="_blank" class="btn btn--primary">Stockholm-Bangalore</a>
+                                    <a href="https://www.makemytrip.com/international-flights/" target="_blank" class="btn btn--outline">MakeMyTrip</a>
+                                    <a href="https://www.airindia.in/" target="_blank" class="btn btn--outline">Air India</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card booking-category">
+                            <div class="card__body">
+                                <h3>🏨 Hotels</h3>
+                                <div class="booking-links">
+                                    <a href="https://www.booking.com/city/fi/helsinki.html" target="_blank" class="btn btn--primary">Helsinki Hotels</a>
+                                    <a href="https://www.booking.com/city/fi/rovaniemi.html" target="_blank" class="btn btn--primary">Lapland Hotels</a>
+                                    <a href="https://www.booking.com/city/se/stockholm.html" target="_blank" class="btn btn--primary">Stockholm Hotels</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card booking-category">
+                            <div class="card__body">
+                                <h3>✈️ Domestic Flights</h3>
+                                <div class="booking-links">
+                                    <a href="https://www.skyscanner.co.in/routes/rvn/stoc/rovaniemi-to-stockholm.html" target="_blank" class="btn btn--primary">Rovaniemi-Stockholm</a>
+                                    <a href="https://www.finnair.com/" target="_blank" class="btn btn--outline">Finnair</a>
+                                    <a href="https://www.norwegian.com/" target="_blank" class="btn btn--outline">Norwegian</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card booking-category">
+                            <div class="card__body">
+                                <h3>🚂 Trains</h3>
+                                <div class="booking-links">
+                                    <a href="https://www.vr.fi/en" target="_blank" class="btn btn--primary">VR Finnish Railways</a>
+                                    <a href="https://www.hsl.fi/en/tickets-and-fares" target="_blank" class="btn btn--outline">HSL Helsinki</a>
+                                    <a href="https://sl.se/en/" target="_blank" class="btn btn--outline">SL Stockholm</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card booking-category">
+                            <div class="card__body">
+                                <h3>🎯 Tours & Activities</h3>
+                                <div class="booking-links">
+                                    <a href="https://www.viator.com/en-IN/tours/Helsinki/Porvoo-Half-Day-Sightseeing/d803-46188P38" target="_blank" class="btn btn--primary">Porvoo Day Trip</a>
+                                    <a href="https://www.getyourguide.com/stockholm-l50/" target="_blank" class="btn btn--primary">Stockholm Tours</a>
+                                    <a href="https://www.klook.com/en-IN/activity/3428-hop-on-hop-off-bus-helsinki/" target="_blank" class="btn btn--outline">Helsinki Bus</a>
+                                    <a href="https://santaclausvillage.info/" target="_blank" class="btn btn--outline">Santa Village</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enhanced Tips Section -->
+                <div class="card tips-section">
+                    <div class="card__body">
+                        <h2>💡 International Travel & Currency Tips</h2>
+                        <div class="tips-grid">
+                            <div class="tip-item">
+                                <strong>💱 Exchange Rate Strategy:</strong> Monitor EUR-INR rates 2-3 months before travel. Current rate around ₹90/€ is reasonable for planning.
+                            </div>
+                            <div class="tip-item">
+                                <strong>✈️ International Flight Booking:</strong> Book Bangalore-Helsinki and Stockholm-Bangalore 3-4 months in advance for best rates.
+                            </div>
+                            <div class="tip-item">
+                                <strong>🏦 Banking & Cards:</strong> Notify banks of international travel. Get forex cards for better rates than airport exchanges.
+                            </div>
+                            <div class="tip-item">
+                                <strong>🚂 VR Night Train:</strong> Book Helsinki-Rovaniemi sleeper 3-6 months in advance. Choose 3-berth with shower for comfort.
+                            </div>
+                            <div class="tip-item">
+                                <strong>💳 Payment in Europe:</strong> Cards widely accepted in Finland & Sweden. Keep some EUR cash for small vendors and tips.
+                            </div>
+                            <div class="tip-item">
+                                <strong>🌌 Northern Lights:</strong> Book 2 tours for better chances. Nov-Mar is best season with clear, cold nights.
+                            </div>
+                            <div class="tip-item">
+                                <strong>🏛️ Porvoo Day Trip:</strong> Historic town 50km from Helsinki. Book bus tour or take local bus for budget option.
+                            </div>
+                            <div class="tip-item">
+                                <strong>✈️ Rovaniemi-Stockholm:</strong> Direct flight saves time vs returning to Helsinki. Book Finnair for best connections.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Item Modal -->
+    <div class="modal hidden" id="add-item-modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Item</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="add-item-form">
+                    <div class="form-group">
+                        <label for="item-name" class="form-label">Item Name</label>
+                        <input type="text" id="item-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="item-duration" class="form-label">Duration/Details</label>
+                        <input type="text" id="item-duration" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="item-cost" class="form-label">Cost (<span id="modal-currency">EUR</span>)</label>
+                        <input type="number" id="item-cost" class="form-control" min="0" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="item-quantity" class="form-label">Quantity</label>
+                        <input type="number" id="item-quantity" class="form-control" min="1" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="item-shared" class="form-label">
+                            <input type="checkbox" id="item-shared"> Shared cost among group
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="item-url" class="form-label">Booking URL (optional)</label>
+                        <input type="url" id="item-url" class="form-control">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--outline" id="modal-cancel">Cancel</button>
+                <button class="btn btn--primary" id="modal-save">Add Item</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
