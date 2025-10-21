@@ -147,7 +147,7 @@
 ---
 
 ### Day 11: Wednesday, February 5, 2026
-**Stockholm → Bengaluru** ✈️
+**Stockholm ** 🇸🇪 🛌 **REST DAY**
 - **Morning:** Quick visit to Vasa Museum or City Hall
 - **Afternoon:** Airport 3 hours before departure (3-4 PM)
 - **Evening:** Depart Stockholm (5-7 PM via European hub)
