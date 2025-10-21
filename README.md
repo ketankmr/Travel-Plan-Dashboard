@@ -26,17 +26,7 @@
 
 ## 📅 DAY-BY-DAY ITINERARY
 
-### Day 1: Friday, January 24, 2026
-**Bengaluru → Helsinki**
-- **Morning:** Relax at home, final packing
-- **Afternoon:** Airport check-in 3 hours before departure
-- **Evening:** Depart Bengaluru (8-10 PM via Istanbul/Dubai/Abu Dhabi)
-- **Accommodation:** In-flight
-- **Notes:** Carry warm clothes in cabin bag, book window seat for views
-
----
-
-### Day 2: Saturday, January 25, 2026
+### Day 1: Sunday, January 26, 2026
 **Helsinki, Finland** 🇫🇮
 - **Morning:** Arrive Helsinki (8-10 AM), immigration, baggage claim
 - **Afternoon:** Check-in Airbnb, rest, explore Senate Square
@@ -48,7 +38,7 @@
 
 ---
 
-### Day 3: Sunday, January 26, 2026
+### Day 2: Monday, January 27, 2026
 **Helsinki, Finland** 🇫🇮 🛌 **REST DAY**
 - **Morning:** Sleep in, cook breakfast at Airbnb
 - **Afternoon:** Optional Suomenlinna Fortress ferry (UNESCO site)
@@ -60,7 +50,7 @@
 
 ---
 
-### Day 4: Monday, January 27, 2026
+### Day 3: Tuesday, January 28, 2026
 **Helsinki → Rovaniemi** ✈️
 - **Morning:** Flight HEL→RVN (8-10 AM, 1h 20m direct)
 - **Afternoon:** Arrive Rovaniemi, check-in Airbnb, Santa Claus Village
@@ -72,7 +62,7 @@
 
 ---
 
-### Day 5: Tuesday, January 28, 2026
+### Day 4: Wednesday, January 29, 2026
 **Rovaniemi, Finland** 🇫🇮 🐕🦌🌌 **ARCTIC ADVENTURE DAY**
 - **Morning:** Husky Safari (9 AM-1 PM, 4 hours in snowy forests)
 - **Afternoon:** Reindeer Farm Experience (2-5 PM, traditional sleigh ride)
@@ -84,7 +74,7 @@
 
 ---
 
-### Day 6: Wednesday, January 29, 2026
+### Day 5: Thursday, January 30, 2026
 **Rovaniemi, Finland** 🇫🇮 🛌 **REST DAY**
 - **Morning:** Sleep late after aurora hunting
 - **Afternoon:** Optional Arktikum Museum (Arctic science & culture)
@@ -96,7 +86,7 @@
 
 ---
 
-### Day 7: Thursday, January 30, 2026
+### Day 6: Friday, January 31, 2026
 **Rovaniemi → Tromso** ✈️ 🇳🇴
 - **Morning:** Flight RVN→TOS (10 AM-12 PM, 1h 25m direct)
 - **Afternoon:** Border crossing to Norway, check-in Tromso Airbnb
@@ -108,7 +98,7 @@
 
 ---
 
-### Day 8: Friday, January 31, 2026
+### Day 7: Saturday, February 1, 2026
 **Tromso, Norway** 🇳🇴 🐋 **WHALE WATCHING**
 - **Morning:** Whale Watching Tour departs 8 AM
 - **Afternoon:** Continue full-day tour (orcas & humpback whales)
@@ -120,7 +110,7 @@
 
 ---
 
-### Day 9: Saturday, February 1, 2026
+### Day 8: Sunday, February 2, 2026
 **Tromso, Norway** 🇳🇴 🛌 **REST DAY**
 - **Morning:** Sleep in, relax at Airbnb
 - **Afternoon:** Arctic Cathedral, Polar Museum (optional)
@@ -132,7 +122,7 @@
 
 ---
 
-### Day 10: Sunday, February 2, 2026
+### Day 9: Monday, February 3, 2026
 **Tromso, Norway** 🇳🇴 🌌 **NORTHERN LIGHTS CHASE**
 - **Morning:** Sleep in, grocery shopping for snacks
 - **Afternoon:** Fjord views, rest before evening tour
@@ -144,7 +134,7 @@
 
 ---
 
-### Day 11: Monday, February 3, 2026
+### Day 10: Tuesday, February 4, 2026
 **Tromso → Stockholm** ✈️ 🇸🇪
 - **Morning:** Flight TOS→ARN (11 AM-1 PM, 2h direct)
 - **Afternoon:** Arrive Stockholm, check-in Airbnb
@@ -156,7 +146,18 @@
 
 ---
 
-### Day 12: Tuesday, February 4, 2026
+### Day 11: Wednesday, February 5, 2026
+**Stockholm → Bengaluru** ✈️
+- **Morning:** Quick visit to Vasa Museum or City Hall
+- **Afternoon:** Airport 3 hours before departure (3-4 PM)
+- **Evening:** Depart Stockholm (5-7 PM via European hub)
+- **Accommodation:** In-flight (arrive Bengaluru next day morning)
+- **Cost:** ₹40,000 per person
+- **Notes:** Keep souvenirs in check-in luggage, save room for duty-free
+
+---
+
+## Day 12: Thurday, February 6, 2026
 **Stockholm → Bengaluru** ✈️
 - **Morning:** Quick visit to Vasa Museum or City Hall
 - **Afternoon:** Airport 3 hours before departure (3-4 PM)
@@ -173,11 +174,11 @@
 
 | Route | Date | Cost/Person | For 3 People | Notes |
 |-------|------|-------------|--------------|-------|
-| Bengaluru → Helsinki | Jan 24 | ₹35,000 | ₹1,05,000 | Via Istanbul (Turkish/IndiGo) |
-| Helsinki → Rovaniemi | Jan 27 | ₹5,500 | ₹16,500 | Direct 1h 20m (Finnair/Norwegian) |
-| Rovaniemi → Tromso | Jan 30 | ₹11,000 | ₹33,000 | Direct 1h 25m (Finnair) |
-| Tromso → Stockholm | Feb 3 | ₹5,500 | ₹16,500 | Direct 2h (SAS/Norwegian) |
-| Stockholm → Bengaluru | Feb 4 | ₹35,000 | ₹1,05,000 | Via Europe (Lufthansa/Air India) |
+| Bengaluru → Helsinki | Jan 26 | ₹35,000 | ₹1,05,000 | Via Istanbul (Turkish/IndiGo) |
+| Helsinki → Rovaniemi | Jan 28 | ₹5,500 | ₹16,500 | Direct 1h 20m (Finnair/Norwegian) |
+| Rovaniemi → Tromso | Jan 31 | ₹11,000 | ₹33,000 | Direct 1h 25m (Finnair) |
+| Tromso → Stockholm | Feb 4 | ₹5,500 | ₹16,500 | Direct 2h (SAS/Norwegian) |
+| Stockholm → Bengaluru | Feb 6 | ₹35,000 | ₹1,05,000 | Via Europe (Lufthansa/Air India) |
 
 **Flight Booking Websites:**
 - International: MakeMyTrip, Skyscanner, Turkish Airlines, Air India
@@ -228,31 +229,6 @@
 - Whale watching includes lunch & coffee
 - Professional photos included in most tours
 - Equipment provided (no need to buy)
-
----
-
-### FOOD (₹30,000 per person - 12.2%)
-
-**Daily Budget: ₹2,500/person**
-
-**Money-Saving Strategy:**
-- **Breakfast:** Cook at Airbnb (cereals, bread, eggs) = ₹200
-- **Lunch:** Supermarket meal deal or lunch buffet = ₹800
-- **Dinner:** Restaurant (1 per day) = ₹1,500
-- **Total:** ₹2,500/day × 12 days = ₹30,000
-
-**Recommended Supermarkets:**
-- **Finland:** S-Market, K-Market, Alepa (24-hour Sale in Rovaniemi)
-- **Norway:** Rema 1000, Kiwi, Coop Extra (cheapest options)
-- **Sweden:** ICA, Coop, Hemköp
-
-**Budget Food Ideas:**
-- Crispbread with cheese/meat
-- Pasta and sauce
-- Instant noodles
-- Frozen pizzas
-- Sandwich ingredients
-- Finnish/Norwegian berries & yogurt
 
 ---
 
