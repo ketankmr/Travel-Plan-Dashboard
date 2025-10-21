@@ -2,7 +2,7 @@
 
 ## 12-Day Winter Journey: Finland → Norway → Sweden
 
-**Trip Dates:** January 24 - February 4, 2026  
+**Trip Dates:** January 28 - February 8, 2026  
 **Travelers:** 3 people  
 **Budget:** ₹2,45,700 per person | ₹7,37,100 total  
 **Under Budget:** ₹4,300 per person  
@@ -26,7 +26,7 @@
 
 ## 📅 DAY-BY-DAY ITINERARY
 
-### Day 1: Sunday, January 26, 2026
+### Day 1: Wednesday, January 28, 2026
 **Helsinki, Finland** 🇫🇮
 - **Morning:** Arrive Helsinki (8-10 AM), immigration, baggage claim
 - **Afternoon:** Check-in Airbnb, rest, explore Senate Square
@@ -38,7 +38,7 @@
 
 ---
 
-### Day 2: Monday, January 27, 2026
+### Day 2: Thursday, January 29, 2026
 **Helsinki, Finland** 🇫🇮 🛌 **REST DAY**
 - **Morning:** Sleep in, cook breakfast at Airbnb
 - **Afternoon:** Optional Suomenlinna Fortress ferry (UNESCO site)
@@ -50,7 +50,7 @@
 
 ---
 
-### Day 3: Tuesday, January 28, 2026
+### Day 3: Friday, January 30, 2026
 **Helsinki → Rovaniemi** ✈️
 - **Morning:** Flight HEL→RVN (8-10 AM, 1h 20m direct)
 - **Afternoon:** Arrive Rovaniemi, check-in Airbnb, Santa Claus Village
@@ -62,7 +62,7 @@
 
 ---
 
-### Day 4: Wednesday, January 29, 2026
+### Day 4: Saturday, January 31, 2026
 **Rovaniemi, Finland** 🇫🇮 🐕🦌🌌 **ARCTIC ADVENTURE DAY**
 - **Morning:** Husky Safari (9 AM-1 PM, 4 hours in snowy forests)
 - **Afternoon:** Reindeer Farm Experience (2-5 PM, traditional sleigh ride)
@@ -74,7 +74,7 @@
 
 ---
 
-### Day 5: Thursday, January 30, 2026
+### Day 5: Sunday, February 1, 2026
 **Rovaniemi, Finland** 🇫🇮 🛌 **REST DAY**
 - **Morning:** Sleep late after aurora hunting
 - **Afternoon:** Optional Arktikum Museum (Arctic science & culture)
@@ -86,7 +86,7 @@
 
 ---
 
-### Day 6: Friday, January 31, 2026
+### Day 6: Monday, February 2, 2026
 **Rovaniemi → Tromso** ✈️ 🇳🇴
 - **Morning:** Flight RVN→TOS (10 AM-12 PM, 1h 25m direct)
 - **Afternoon:** Border crossing to Norway, check-in Tromso Airbnb
@@ -98,7 +98,7 @@
 
 ---
 
-### Day 7: Saturday, February 1, 2026
+### Day 7: Tuesday, February 3, 2026
 **Tromso, Norway** 🇳🇴 🐋 **WHALE WATCHING**
 - **Morning:** Whale Watching Tour departs 8 AM
 - **Afternoon:** Continue full-day tour (orcas & humpback whales)
@@ -110,7 +110,7 @@
 
 ---
 
-### Day 8: Sunday, February 2, 2026
+### Day 8: Wednesday, February 4, 2026
 **Tromso, Norway** 🇳🇴 🛌 **REST DAY**
 - **Morning:** Sleep in, relax at Airbnb
 - **Afternoon:** Arctic Cathedral, Polar Museum (optional)
@@ -122,7 +122,7 @@
 
 ---
 
-### Day 9: Monday, February 3, 2026
+### Day 9: Thursday, February 5, 2026
 **Tromso, Norway** 🇳🇴 🌌 **NORTHERN LIGHTS CHASE**
 - **Morning:** Sleep in, grocery shopping for snacks
 - **Afternoon:** Fjord views, rest before evening tour
@@ -134,7 +134,7 @@
 
 ---
 
-### Day 10: Tuesday, February 4, 2026
+### Day 10: Friday, February 6, 2026
 **Tromso → Stockholm** ✈️ 🇸🇪
 - **Morning:** Flight TOS→ARN (11 AM-1 PM, 2h direct)
 - **Afternoon:** Arrive Stockholm, check-in Airbnb
@@ -146,7 +146,7 @@
 
 ---
 
-### Day 11: Wednesday, February 5, 2026
+### Day 11: Saturday, February 7, 2026
 **Stockholm ** 🇸🇪 🛌 **REST DAY**
 - **Morning:** Quick visit to Vasa Museum or City Hall
 - **Afternoon:** Airport 3 hours before departure (3-4 PM)
@@ -157,7 +157,7 @@
 
 ---
 
-## Day 12: Thurday, February 6, 2026
+## Day 12: Sunday, February 8, 2026
 **Stockholm → Bengaluru** ✈️
 - **Morning:** Quick visit to Vasa Museum or City Hall
 - **Afternoon:** Airport 3 hours before departure (3-4 PM)
