@@ -139,27 +139,26 @@
 - **Morning:** Flight TOS→ARN (11 AM-1 PM, 2h direct)
 - **Afternoon:** Arrive Stockholm, check-in Airbnb
 - **Evening:** Gamla Stan (Old Town) walking tour, cobblestone streets
-- **Accommodation:** Stockholm Airbnb (2BR, Night 1/1)
+- **Accommodation:** Stockholm Airbnb (2BR, Night 1/2)
 - **Airlines:** SAS (direct flights)
 - **Cost:** ₹8,000 per person
-- **Notes:** Last city of trip, enjoy Swedish culture & architecture
+- **Notes:** last city of trip, enjoy Swedish culture & architecture
 
 ---
 
 ### Day 11: Saturday, February 7, 2026
 **Stockholm ** 🇸🇪 🛌 **REST DAY**
-- **Morning:** Quick visit to Vasa Museum or City Hall
-- **Afternoon:** Airport 3 hours before departure (3-4 PM)
-- **Evening:** Depart Stockholm (5-7 PM via European hub)
-- **Accommodation:** In-flight (arrive Bengaluru next day morning)
-- **Cost:** ₹40,000 per person
-- **Notes:** Keep souvenirs in check-in luggage, save room for duty-free
+- **Morning:** visit to Vasa Museum or City Hall
+- **Afternoon:** Cafe exploring and souvenirs shopping
+- **Evening:** back to air bnb and pack up to leave
+- **Accommodation:** Stockholm Airbnb (2BR, Night 2/2)
+- **Cost:** ₹8,000 per person
+- **Notes:** last city of trip, enjoy Swedish culture & architecture
 
 ---
 
 ## Day 12: Sunday, February 8, 2026
 **Stockholm → Bengaluru** ✈️
-- **Morning:** Quick visit to Vasa Museum or City Hall
 - **Afternoon:** Airport 3 hours before departure (3-4 PM)
 - **Evening:** Depart Stockholm (5-7 PM via European hub)
 - **Accommodation:** In-flight (arrive Bengaluru next day morning)
